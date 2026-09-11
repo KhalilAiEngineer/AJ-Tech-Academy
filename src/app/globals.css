@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #1a1a1a;
-  --color-surface: #252525;
+  --color-bg: #f8f6f1;
+  --color-bg-light: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0ede6;
   --color-copper: #e38c35;
   --color-copper-dark: #c97a2d;
-  --color-lavender: #6e77cb;
-  --color-lavender-dark: #5a63b5;
-  --color-cream: #f5f1e8;
-  --color-cream-muted: rgba(245, 241, 232, 0.6);
-  --color-cream-faint: rgba(245, 241, 232, 0.1);
+  --color-copper-light: #f5e6d0;
+  --color-navy: #1a2744;
+  --color-navy-light: #2d3f5e;
+  --color-text: #1a2744;
+  --color-text-muted: #5a6478;
+  --color-text-light: #8892a4;
+  --color-border: #e8e4dc;
+  --color-sky-top: #d4e7f7;
+  --color-sky-bottom: #e8f0f8;
 
   --font-heading: "Georgia", "Times New Roman", serif;
   --font-body: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
@@ -22,11 +28,11 @@ html {
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-cream);
+  color: var(--color-text);
   font-family: var(--font-body);
 }
 
 ::selection {
-  background-color: rgba(227, 140, 53, 0.3);
-  color: var(--color-cream);
+  background-color: rgba(227, 140, 53, 0.2);
+  color: var(--color-navy);
 }

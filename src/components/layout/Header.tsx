@@ -5,7 +5,6 @@ import { Menu, X, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SITE, NAV_LINKS } from "@/lib/constants";
-import Button from "@/components/ui/Button";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,7 +20,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-bg/90 backdrop-blur-md border-b border-cream-faint"
+          ? "bg-white/80 backdrop-blur-lg shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -32,22 +31,26 @@ export default function Header() {
             <Image
               src="/images/logo.svg"
               alt="AJ Tech Academy"
-              width={40}
-              height={40}
-              className="w-10 h-10"
+              width={36}
+              height={36}
+              className="w-9 h-9"
             />
-            <span className="font-heading text-xl font-bold text-cream">
+            <span className="font-heading text-lg font-bold text-navy">
               {SITE.name}
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
+          {/* Desktop Nav - Pill style */}
+          <nav className="hidden lg:flex items-center gap-1 bg-white/60 backdrop-blur-sm rounded-full px-2 py-1 border border-border">
+            {NAV_LINKS.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-cream-muted hover:text-cream transition-colors text-sm font-medium"
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                  i === 0
+                    ? "bg-navy text-white"
+                    : "text-text-muted hover:text-navy hover:bg-white"
+                }`}
               >
                 {link.label}
               </Link>
@@ -55,28 +58,26 @@ export default function Header() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-4">
             <a
               href={`tel:${SITE.phone}`}
-              className="flex items-center gap-2 text-cream-muted hover:text-copper transition-colors text-sm"
+              className="flex items-center gap-2 text-text-muted hover:text-navy transition-colors text-sm"
             >
               <Phone className="w-4 h-4" />
               {SITE.phone}
             </a>
-            <a
-              href={SITE.phoneLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer px-4 py-2 text-sm bg-copper text-bg hover:bg-copper-dark shadow-[0_0_20px_rgba(227,140,53,0.3)] hover:shadow-[0_0_30px_rgba(227,140,53,0.5)]"
+            <Link
+              href="/contact"
+              className="px-6 py-2.5 bg-navy text-white rounded-full text-sm font-semibold hover:bg-navy-light transition-colors"
             >
-              Enroll Now
-            </a>
+              Get Started
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-cream p-2"
+            className="lg:hidden text-navy p-2"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -86,34 +87,33 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-surface border-t border-cream-faint">
-          <nav className="flex flex-col px-4 py-4 gap-3">
+        <div className="lg:hidden bg-white border-t border-border shadow-lg">
+          <nav className="flex flex-col px-4 py-4 gap-2">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-cream-muted hover:text-cream transition-colors py-2 text-sm font-medium"
+                className="text-text-muted hover:text-navy transition-colors py-3 px-4 rounded-xl text-sm font-medium hover:bg-surface-alt"
               >
                 {link.label}
               </Link>
             ))}
             <a
               href={`tel:${SITE.phone}`}
-              className="flex items-center gap-2 text-cream-muted hover:text-copper transition-colors py-2 text-sm"
+              className="flex items-center gap-2 text-text-muted hover:text-navy transition-colors py-3 px-4 text-sm"
             >
               <Phone className="w-4 h-4" />
               {SITE.phone}
             </a>
-            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-cream-faint">
-              <a
-                href={SITE.phoneLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer px-4 py-2 text-sm bg-copper text-bg hover:bg-copper-dark w-full"
+            <div className="mt-4 pt-4 border-t border-border">
+              <Link
+                href="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="block text-center px-6 py-3 bg-navy text-white rounded-full text-sm font-semibold"
               >
-                Enroll Now
-              </a>
+                Get Started
+              </Link>
             </div>
           </nav>
         </div>

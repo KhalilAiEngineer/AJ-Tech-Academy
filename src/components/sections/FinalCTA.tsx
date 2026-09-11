@@ -3,52 +3,53 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { SITE } from "@/lib/constants";
-import Button from "@/components/ui/Button";
 
 export default function FinalCTA() {
   return (
-    <section id="contact" className="py-20 lg:py-28">
+    <section id="contact" className="py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-2xl border border-cream-faint bg-surface overflow-hidden">
+        <div className="relative rounded-3xl bg-gradient-to-br from-navy to-navy-light overflow-hidden">
           {/* Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-copper/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-copper/20 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-sky-top/20 rounded-full blur-[100px] pointer-events-none" />
 
           <div className="relative px-8 py-16 lg:px-16 lg:py-20 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-copper/30 bg-copper/5 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
               <Sparkles className="w-4 h-4 text-copper" />
-              <span className="font-mono text-xs text-copper uppercase tracking-wider">
+              <span className="font-mono text-xs text-white/80 uppercase tracking-wider">
                 Limited Spots Available
               </span>
             </div>
 
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-cream mb-4">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
               Your Next Role Is{" "}
-              <span className="text-copper italic">12 Weeks</span> Away
+              <span className="italic text-copper">12 Weeks</span> Away
             </h2>
 
-            <p className="text-cream-muted text-lg max-w-2xl mx-auto mb-8">
+            <p className="text-white/70 text-lg max-w-2xl mx-auto mb-8">
               Join thousands of engineers who accelerated their careers with
               expert-led, project-based learning.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Link href="/courses">
-                <Button size="lg" className="group">
-                  Explore Courses
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
+              <Link
+                href="/courses"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-copper text-white rounded-full font-semibold hover:bg-copper-dark transition-colors group"
+              >
+                Explore Courses
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
                 href={SITE.phoneLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer px-8 py-4 text-lg border border-cream-faint text-cream hover:bg-cream-faint"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 border border-white/20 text-white rounded-full font-semibold hover:bg-white/20 transition-colors"
               >
                 Talk to Admissions
               </a>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-cream-muted">
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-copper" />
                 No credit card required

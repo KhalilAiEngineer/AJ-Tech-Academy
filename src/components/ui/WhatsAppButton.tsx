@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
     <div className="fixed bottom-6 right-6 z-50">
       {/* Chat Popup */}
       {open && (
-        <div className="mb-4 bg-surface border border-cream-faint rounded-2xl shadow-2xl w-80 overflow-hidden">
+        <div className="mb-4 bg-white border border-border rounded-2xl shadow-2xl w-80 overflow-hidden">
           {/* Header */}
           <div className="bg-[#25D366] p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -29,7 +29,7 @@ export default function WhatsAppButton() {
           </div>
 
           {/* Body */}
-          <div className="p-4 bg-[#e5ddd5] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjAzKSIvPjwvc3ZnPg==')]">
+          <div className="p-4 bg-[#e5ddd5]">
             <div className="bg-white rounded-xl p-3 shadow-sm max-w-[85%]">
               <p className="text-gray-800 text-sm">
                 Hi! How can we help you today? 👋
@@ -39,7 +39,7 @@ export default function WhatsAppButton() {
           </div>
 
           {/* Input */}
-          <div className="p-3 bg-surface border-t border-cream-faint">
+          <div className="p-3 bg-white border-t border-border">
             <a
               href={`${SITE.phoneLink}?text=Hi! I'm interested in your courses.`}
               target="_blank"
