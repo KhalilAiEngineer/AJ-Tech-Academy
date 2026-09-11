@@ -1,4 +1,4 @@
-import { GraduationCap } from "lucide-react";
+import Image from "next/image";
 import { SITE } from "@/lib/constants";
 
 const footerLinks = {
@@ -69,9 +69,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-copper flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-bg" />
-              </div>
+              <Image
+                src="/images/logo.svg"
+                alt="AJ Tech Academy"
+                width={36}
+                height={36}
+                className="w-9 h-9"
+              />
               <span className="font-heading text-lg font-bold text-cream">
                 {SITE.name}
               </span>

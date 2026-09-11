@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, Play } from "lucide-react";
+import Image from "next/image";
 import { SITE, STATS } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 
@@ -96,9 +97,13 @@ export default function Hero() {
 
               {/* Center badge */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-copper/20 border border-copper/30 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-copper flex items-center justify-center">
-                  <span className="font-heading text-2xl font-bold text-bg">AJ</span>
-                </div>
+                <Image
+                  src="/images/logo.svg"
+                  alt="AJ Tech Academy"
+                  width={64}
+                  height={64}
+                  className="w-16 h-16"
+                />
               </div>
             </div>
           </div>

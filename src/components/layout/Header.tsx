@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import { SITE, NAV_LINKS } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 
@@ -27,9 +28,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-copper flex items-center justify-center">
-              <GraduationCap className="w-6 h-6 text-bg" />
-            </div>
+            <Image
+              src="/images/logo.svg"
+              alt="AJ Tech Academy"
+              width={40}
+              height={40}
+              className="w-10 h-10"
+            />
             <span className="font-heading text-xl font-bold text-cream">
               {SITE.name}
             </span>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="50%" style="stop-color:#1a3a6e"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c0c0c0"/>
+      <stop offset="100%" style="stop-color:#e8e8e8"/>
+    </linearGradient>
+  </defs>
+  <!-- A -->
+  <path d="M40 150 L80 40 L100 40 L70 150 Z" fill="url(#blueGrad)"/>
+  <path d="M55 110 L95 110 L75 55 Z" fill="#1a1a1a"/>
+  <!-- J -->
+  <path d="M110 40 L160 40 L160 120 Q160 150 130 150 Q100 150 100 120 L120 120 Q120 135 130 135 Q140 135 140 120 L140 40 Z" fill="url(#blueGrad)"/>
+  <!-- Wave/Swirl -->
+  <path d="M30 130 Q60 100 100 120 Q140 140 180 110" stroke="url(#silverGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M40 145 Q70 115 110 135 Q150 155 190 125" stroke="url(#blueGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
