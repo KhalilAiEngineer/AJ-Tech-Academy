@@ -1,22 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SITE } from "@/lib/constants";
 
 const footerLinks = {
   Platform: [
-    { label: "Courses", href: "#courses" },
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "For Teams", href: "#contact" },
+    { label: "Courses", href: "/courses" },
+    { label: "About Us", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ],
-  Resources: [
-    { label: "Blog", href: "#" },
-    { label: "Documentation", href: "#" },
-    { label: "Help Center", href: "#" },
-    { label: "Community", href: "#" },
+  Support: [
+    { label: "WhatsApp Us", href: SITE.phoneLink },
+    { label: "Call Us", href: `tel:${SITE.phone}` },
+    { label: "Email Us", href: `mailto:${SITE.email}` },
   ],
   Company: [
-    { label: "About", href: "#" },
-    { label: "Careers", href: "#" },
+    { label: "About", href: "/about" },
     { label: "Privacy Policy", href: "#" },
     { label: "Terms of Service", href: "#" },
   ],
@@ -125,7 +123,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
           <p className="font-mono text-xs text-cream-muted">
-            Built with passion for education.
+            Built by <span className="text-copper">Khalil Ahmad</span>
           </p>
         </div>
       </div>

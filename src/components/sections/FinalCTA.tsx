@@ -1,6 +1,8 @@
 "use client";
 
 import { ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { SITE } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 
 export default function FinalCTA() {
@@ -30,13 +32,20 @@ export default function FinalCTA() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Button size="lg" className="group">
-                Start Free Trial
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="secondary" size="lg">
+              <Link href="/courses">
+                <Button size="lg" className="group">
+                  Explore Courses
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <a
+                href={SITE.phoneLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer px-8 py-4 text-lg border border-cream-faint text-cream hover:bg-cream-faint"
+              >
                 Talk to Admissions
-              </Button>
+              </a>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-cream-muted">

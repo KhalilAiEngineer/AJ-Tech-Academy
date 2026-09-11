@@ -3,14 +3,15 @@ export const SITE = {
   tagline: "Master in-demand tech skills with expert-led courses.",
   description:
     "AJ Tech Academy — The modern learning platform for ambitious professionals. Master AI, full-stack development, cloud, and product skills with expert-led interactive courses.",
+  phone: "+92 324 0654394",
+  phoneLink: "https://wa.me/923240654394",
+  email: "info@ajtechacademy.com",
 };
 
 export const NAV_LINKS = [
-  { label: "Courses", href: "#courses" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Benefits", href: "#benefits" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: "Courses", href: "/courses" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const COURSES = [
@@ -30,6 +31,7 @@ export const COURSES = [
     price: 349,
     originalPrice: 499,
     badge: "Trending",
+    image: "/images/course-ai.jpg",
     instructor: {
       name: "Dr. Elena Rostova",
       role: "Staff AI Research Engineer",
@@ -53,6 +55,7 @@ export const COURSES = [
     price: 299,
     originalPrice: 449,
     badge: "Best Seller",
+    image: "/images/course-fullstack.jpg",
     instructor: {
       name: "James Mitchell",
       role: "Principal Engineer",
@@ -76,6 +79,7 @@ export const COURSES = [
     price: 399,
     originalPrice: 549,
     badge: "New",
+    image: "/images/course-cloud.jpg",
     instructor: {
       name: "Priya Sharma",
       role: "Cloud Architect",
@@ -98,6 +102,7 @@ export const COURSES = [
     students: 7800,
     price: 279,
     originalPrice: 399,
+    image: "/images/course-design.jpg",
     instructor: {
       name: "Sarah Chen",
       role: "Head of Design",
@@ -165,7 +170,7 @@ export const TESTIMONIALS = [
     company: "TechCorp",
     rating: 5,
     course: "Generative AI & Agentic Systems",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=128&q=80",
+    avatar: "/images/mentor-2.jpg",
   },
   {
     id: "2",
@@ -176,7 +181,7 @@ export const TESTIMONIALS = [
     company: "StartupXYZ",
     rating: 5,
     course: "Full-Stack Web Engineering",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=128&q=80",
+    avatar: "/images/mentor-1.jpg",
   },
   {
     id: "3",
@@ -187,7 +192,7 @@ export const TESTIMONIALS = [
     company: "InfraCo",
     rating: 5,
     course: "Cloud & DevOps Mastery",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=128&q=80",
+    avatar: "/images/mentor-2.jpg",
   },
 ];
 

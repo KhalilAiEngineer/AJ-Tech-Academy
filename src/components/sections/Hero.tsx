@@ -2,6 +2,7 @@
 
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { SITE, STATS } from "@/lib/constants";
 import Button from "@/components/ui/Button";
 
@@ -34,14 +35,21 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg" className="group">
-                Explore Courses
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="secondary" size="lg" className="group">
+              <Link href="/courses">
+                <Button size="lg" className="group">
+                  Explore Courses
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <a
+                href={SITE.phoneLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer px-8 py-4 text-lg border border-cream-faint text-cream hover:bg-cream-faint group"
+              >
                 <Play className="w-5 h-5 mr-2" />
-                Watch Demo
-              </Button>
+                Contact Us
+              </a>
             </div>
 
             {/* Stats */}
@@ -62,16 +70,20 @@ export default function Hero() {
           {/* Right - Visual */}
           <div className="relative hidden lg:block">
             <div className="relative w-full aspect-square max-w-md mx-auto">
-              {/* Decorative grid */}
-              <div className="absolute inset-0 rounded-2xl border border-cream-faint bg-surface/50 backdrop-blur-sm overflow-hidden">
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: `linear-gradient(rgba(245,241,232,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(245,241,232,0.1) 1px, transparent 1px)`,
-                  backgroundSize: "40px 40px",
-                }} />
+              {/* Main hero image */}
+              <div className="absolute inset-0 rounded-2xl overflow-hidden border border-cream-faint">
+                <Image
+                  src="/images/hero-student.jpg"
+                  alt="Students collaborating on tech projects"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/20 to-transparent" />
               </div>
 
               {/* Floating cards */}
-              <div className="absolute top-8 left-8 bg-surface border border-cream-faint rounded-xl p-4 shadow-lg animate-bounce" style={{ animationDuration: "3s" }}>
+              <div className="absolute top-6 left-6 bg-surface/90 backdrop-blur-sm border border-cream-faint rounded-xl p-4 shadow-lg animate-bounce" style={{ animationDuration: "3s" }}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-copper/20 flex items-center justify-center">
                     <span className="text-copper font-mono text-sm font-bold">AI</span>
@@ -83,7 +95,7 @@ export default function Hero() {
                 </div>
               </div>
 
-              <div className="absolute bottom-12 right-8 bg-surface border border-cream-faint rounded-xl p-4 shadow-lg animate-bounce" style={{ animationDuration: "4s", animationDelay: "1s" }}>
+              <div className="absolute bottom-6 right-6 bg-surface/90 backdrop-blur-sm border border-cream-faint rounded-xl p-4 shadow-lg animate-bounce" style={{ animationDuration: "4s", animationDelay: "1s" }}>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-lavender/20 flex items-center justify-center">
                     <span className="text-lavender font-mono text-sm font-bold">FS</span>
@@ -96,7 +108,7 @@ export default function Hero() {
               </div>
 
               {/* Center badge */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-copper/20 border border-copper/30 flex items-center justify-center">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-surface/80 backdrop-blur-sm border border-copper/30 flex items-center justify-center shadow-lg">
                 <Image
                   src="/images/logo.svg"
                   alt="AJ Tech Academy"

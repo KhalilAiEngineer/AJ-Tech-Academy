@@ -1,6 +1,8 @@
 "use client";
 
 import { Star, Clock, BookOpen, Users, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { COURSES } from "@/lib/constants";
 import { Card } from "@/components/ui";
 import Button from "@/components/ui/Button";
@@ -25,18 +27,29 @@ export default function FeaturedCourses() {
         {/* Course Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {COURSES.map((course) => (
-            <Card key={course.id} hover className="p-6">
-              <div className="flex flex-col h-full">
-                {/* Badge & Category */}
+            <Card key={course.id} hover className="overflow-hidden">
+              {/* Course Image */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={course.image}
+                  alt={course.title}
+                  fill
+                  className="object-cover transition-transform duration-300 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+                {course.badge && (
+                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-copper text-bg text-xs font-mono font-bold">
+                    {course.badge}
+                  </span>
+                )}
+              </div>
+
+              <div className="p-6 flex flex-col h-full">
+                {/* Category */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono text-xs text-lavender uppercase tracking-wider">
                     {course.category}
                   </span>
-                  {course.badge && (
-                    <span className="px-3 py-1 rounded-full bg-copper/10 border border-copper/30 text-copper text-xs font-mono">
-                      {course.badge}
-                    </span>
-                  )}
                 </div>
 
                 {/* Title */}
@@ -117,10 +130,12 @@ export default function FeaturedCourses() {
 
         {/* CTA */}
         <div className="text-center mt-12">
-          <Button variant="secondary" size="lg" className="group">
-            View All Courses
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link href="/courses">
+            <Button variant="secondary" size="lg" className="group">
+              View All Courses
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
