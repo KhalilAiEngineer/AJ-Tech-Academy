@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF6B35;
+  --color-primary-dark: #E55A2B;
+  --color-primary-light: #FF8F65;
+  --color-secondary: #1B2A4A;
+  --color-accent: #4ECDC4;
+  --color-bg-light: #FFF8F5;
+  --color-bg-cream: #FFFDF9;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF8F65 50%, #FFA880 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(180deg, #FF6B35 0%, #FF8F65 40%, #FFF8F5 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}

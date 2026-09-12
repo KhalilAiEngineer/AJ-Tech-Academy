@@ -1,53 +1,35 @@
-# AJ Tech Academy
+# AJ Tech Academy - Online Education Platform
 
-Modern learning management platform landing page built with **Next.js 15**, **TypeScript**, and **Tailwind CSS v4**.
+A modern, responsive student course enrollment platform built with React, Tailwind CSS, and Vite.
+
+## Features
+
+- **Student Registration & Authentication** - Create accounts, login, logout
+- **Course Browsing** - Browse 8+ courses with search and filter functionality
+- **Course Details** - View detailed course information, instructor, syllabus
+- **Course Enrollment** - Enroll in courses with a complete enrollment form
+- **Student Dashboard** - View enrolled courses, progress, and account info
+- **Responsive Design** - Works on desktop, tablet, and mobile devices
 
 ## Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **Icons:** Lucide React
-- **Fonts:** Georgia, Plus Jakarta Sans, Space Mono
+- React 19
+- React Router DOM
+- Tailwind CSS 4
+- Vite
+- Lucide React Icons
 
 ## Getting Started
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
+## Deployment
 
-## Deploy on Vercel
+This project is configured for Vercel deployment. Simply connect your GitHub repository to Vercel and it will automatically deploy.
 
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import the GitHub repository
-4. Vercel will auto-detect Next.js and configure everything
-5. Click **Deploy**
+## Live Demo
 
-## Project Structure
-
-```
-src/
-├── app/              # Pages and layouts
-├── components/
-│   ├── layout/       # Header, Footer
-│   ├── sections/     # Hero, Courses, Benefits, etc.
-│   └── ui/           # Button, Card
-└── lib/              # Constants and data
-```
-
-## License
-
-MIT
+[View Live Site](https://aj-tech-academy.vercel.app)
