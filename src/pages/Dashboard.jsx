@@ -1,16 +1,41 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { courses } from '../data/courses';
 import { User, Mail, Calendar, BookOpen, Clock, BarChart3, ArrowRight, LogOut } from 'lucide-react';
 
 export default function Dashboard() {
-  const { user, getUserEnrollments, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user, loading, getUserEnrollments, logout } = useAuth();
   const [courseProgress, setCourseProgress] = useState({});
 
+  useEffect(() => {
+    if (user) {
+      const progressData = {};
+      const enrollments = getUserEnrollments();
+      enrollments.forEach(e => {
+        const key = `course_progress_${user.id}_${e.courseId}`;
+        const saved = localStorage.getItem(key);
+        if (saved) {
+          const data = JSON.parse(saved);
+          progressData[e.courseId] = data.progress || 0;
+        } else {
+          progressData[e.courseId] = 0;
+        }
+      });
+      setCourseProgress(progressData);
+    }
+  }, [user, getUserEnrollments]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-light flex items-center justify-center">
+        <div className="text-xl text-gray-500">Loading...</div>
+      </div>
+    );
+  }
+
   if (!user) {
-    navigate('/login');
+    window.location.href = '/login';
     return null;
   }
 
@@ -20,25 +45,9 @@ export default function Dashboard() {
     course: courses.find(c => c.id === e.courseId)
   })).filter(e => e.course);
 
-  // Load real progress from localStorage
-  useEffect(() => {
-    const progressData = {};
-    enrolledCourses.forEach(e => {
-      const key = `course_progress_${user.id}_${e.courseId}`;
-      const saved = localStorage.getItem(key);
-      if (saved) {
-        const data = JSON.parse(saved);
-        progressData[e.courseId] = data.progress || 0;
-      } else {
-        progressData[e.courseId] = 0;
-      }
-    });
-    setCourseProgress(progressData);
-  }, [enrolledCourses, user]);
-
   const handleLogout = () => {
     logout();
-    navigate('/');
+    window.location.href = '/';
   };
 
   const totalProgress = Object.keys(courseProgress).length > 0
@@ -166,9 +175,9 @@ export default function Dashboard() {
                 <div className="text-center py-12">
                   <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <p className="text-gray-500 mb-4">You haven't enrolled in any courses yet.</p>
-                  <Link to="/courses" className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-flex items-center gap-2">
+                  <a href="/courses" onClick={(e) => { e.preventDefault(); window.location.href = '/courses'; }} className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-flex items-center gap-2">
                     Browse Courses <ArrowRight className="w-5 h-5" />
-                  </Link>
+                  </a>
                 </div>
               )}
             </div>
