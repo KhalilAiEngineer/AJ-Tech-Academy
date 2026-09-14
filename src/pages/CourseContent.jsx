@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { courses } from '../data/courses';
-import { ArrowLeft, Play, CheckCircle, Clock, BookOpen, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Play, CheckCircle, Clock, BookOpen, ChevronRight, LogOut } from 'lucide-react';
 
 export default function CourseContent() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { user, loading, isEnrolled } = useAuth();
+  const { user, loading, isEnrolled, logout } = useAuth();
   const [activeVideo, setActiveVideo] = useState(0);
   const [completedVideos, setCompletedVideos] = useState([]);
 
   const course = courses.find(c => c.id === parseInt(id));
   const storageKey = user ? `course_progress_${user.id}_${id}` : null;
 
-  // Load progress from localStorage
   useEffect(() => {
     if (storageKey) {
       const saved = localStorage.getItem(storageKey);
@@ -26,7 +24,6 @@ export default function CourseContent() {
     }
   }, [storageKey]);
 
-  // Save progress to localStorage
   useEffect(() => {
     if (storageKey && completedVideos.length >= 0) {
       localStorage.setItem(storageKey, JSON.stringify({
@@ -38,18 +35,25 @@ export default function CourseContent() {
     }
   }, [storageKey, completedVideos, activeVideo, course]);
 
-  // Wait for loading to finish
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+        <div className="text-white text-xl">Loading course...</div>
       </div>
     );
   }
 
   if (!user) {
-    navigate('/login', { state: { from: `/course/${id}/content` } });
-    return null;
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Please login to access this course</h2>
+          <Link to="/login" className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
+            Login
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   if (!course) {
@@ -57,7 +61,9 @@ export default function CourseContent() {
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Course Not Found</h2>
-          <Link to="/courses" className="text-primary font-medium hover:underline">Back to Courses</Link>
+          <Link to="/courses" className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
+            Browse Courses
+          </Link>
         </div>
       </div>
     );
@@ -67,7 +73,8 @@ export default function CourseContent() {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">You are not enrolled in this course</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">You are not enrolled in this course</h2>
+          <p className="text-gray-400 mb-6">Enroll first to access the course content</p>
           <Link to={`/course/${id}`} className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
             Enroll Now
           </Link>
@@ -90,13 +97,12 @@ export default function CourseContent() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* Top Bar */}
       <div className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 text-gray-600 hover:text-primary transition">
+            <a href="/dashboard" onClick={(e) => { e.preventDefault(); window.location.href = '/dashboard'; }} className="flex items-center gap-2 text-gray-600 hover:text-primary transition">
               <ArrowLeft className="w-5 h-5" /> Dashboard
-            </button>
+            </a>
             <div className="h-6 w-px bg-gray-200"></div>
             <div>
               <h1 className="font-bold text-secondary text-sm md:text-base">{course.title}</h1>
@@ -116,11 +122,11 @@ export default function CourseContent() {
       </div>
 
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row">
-        {/* Video Player */}
         <div className="flex-1">
           <div className="relative w-full bg-black" style={{ paddingBottom: '56.25%' }}>
             {currentVideo ? (
               <iframe
+                key={`${currentVideo.videoId}-${activeVideo}`}
                 className="absolute inset-0 w-full h-full"
                 src={`https://www.youtube.com/embed/${currentVideo.videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1`}
                 title={currentVideo.title}
@@ -135,7 +141,6 @@ export default function CourseContent() {
             )}
           </div>
 
-          {/* Video Info */}
           <div className="bg-white p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
@@ -162,7 +167,6 @@ export default function CourseContent() {
           </div>
         </div>
 
-        {/* Sidebar - Video List */}
         <div className="w-full lg:w-96 bg-white border-l">
           <div className="p-4 border-b sticky top-16 bg-white z-10">
             <h3 className="font-bold text-secondary">Course Content</h3>

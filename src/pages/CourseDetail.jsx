@@ -77,12 +77,12 @@ export default function CourseDetail() {
             <p className="text-sm text-gray-500"><strong>Status:</strong> <span className="text-green-500 font-medium">Active</span></p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to={`/course/${course.id}/content`} className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
+            <a href={`/course/${course.id}/content`} onClick={(e) => { e.preventDefault(); window.location.href = `/course/${course.id}/content`; }} className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
               Start Course
-            </Link>
-            <Link to="/dashboard" className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-200 transition inline-block">
+            </a>
+            <a href="/dashboard" onClick={(e) => { e.preventDefault(); window.location.href = '/dashboard'; }} className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-200 transition inline-block">
               Go to Dashboard
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -113,9 +113,9 @@ export default function CourseDetail() {
               <img src={course.image} alt={course.title} className="w-full h-40 object-cover rounded-xl mb-4" />
               <p className="text-3xl font-bold text-primary mb-4">${course.price}</p>
               {alreadyEnrolled ? (
-                <Link to={`/course/${course.id}/content`} className="block w-full bg-green-500 text-white py-3 rounded-lg font-bold text-center hover:bg-green-600 transition">
+                <a href={`/course/${course.id}/content`} onClick={(e) => { e.preventDefault(); window.location.href = `/course/${course.id}/content`; }} className="block w-full bg-green-500 text-white py-3 rounded-lg font-bold text-center hover:bg-green-600 transition">
                   Start Course
-                </Link>
+                </a>
               ) : (
                 <button onClick={handleEnrollClick} className="w-full gradient-primary text-white py-3 rounded-lg font-bold hover:opacity-90 transition">
                   Enroll Now
