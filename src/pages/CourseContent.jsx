@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { courses } from '../data/courses';
@@ -12,6 +12,31 @@ export default function CourseContent() {
   const [completedVideos, setCompletedVideos] = useState([]);
 
   const course = courses.find(c => c.id === parseInt(id));
+  const storageKey = user ? `course_progress_${user.id}_${id}` : null;
+
+  // Load progress from localStorage
+  useEffect(() => {
+    if (storageKey) {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const data = JSON.parse(saved);
+        setCompletedVideos(data.completedVideos || []);
+        setActiveVideo(data.lastVideo || 0);
+      }
+    }
+  }, [storageKey]);
+
+  // Save progress to localStorage
+  useEffect(() => {
+    if (storageKey && completedVideos.length >= 0) {
+      localStorage.setItem(storageKey, JSON.stringify({
+        completedVideos,
+        lastVideo: activeVideo,
+        progress: Math.round((completedVideos.length / (course?.videos?.length || 1)) * 100),
+        updatedAt: new Date().toISOString()
+      }));
+    }
+  }, [storageKey, completedVideos, activeVideo, course]);
 
   if (!user) {
     navigate('/login', { state: { from: `/course/${id}/content` } });
@@ -76,15 +101,15 @@ export default function CourseContent() {
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row">
         {/* Video Player */}
         <div className="flex-1">
-          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <div className="relative w-full bg-black" style={{ paddingBottom: '56.25%' }}>
             {currentVideo ? (
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${currentVideo.videoId}?autoplay=1`}
+                src={`https://www.youtube.com/embed/${currentVideo.videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1`}
                 title={currentVideo.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+                allowFullScreen={false}
               ></iframe>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
@@ -125,6 +150,9 @@ export default function CourseContent() {
           <div className="p-4 border-b sticky top-16 bg-white z-10">
             <h3 className="font-bold text-secondary">Course Content</h3>
             <p className="text-sm text-gray-400">{completedVideos.length}/{videos.length} lessons completed</p>
+            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div className="gradient-primary h-2 rounded-full transition-all" style={{ width: `${progress}%` }}></div>
+            </div>
           </div>
           <div className="overflow-y-auto max-h-[calc(100vh-200px)]">
             {videos.map((video, index) => (

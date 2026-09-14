@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { courses } from '../data/courses';
@@ -6,6 +7,7 @@ import { User, Mail, Calendar, BookOpen, Clock, BarChart3, ArrowRight, LogOut } 
 export default function Dashboard() {
   const { user, getUserEnrollments, logout } = useAuth();
   const navigate = useNavigate();
+  const [courseProgress, setCourseProgress] = useState({});
 
   if (!user) {
     navigate('/login');
@@ -18,10 +20,30 @@ export default function Dashboard() {
     course: courses.find(c => c.id === e.courseId)
   })).filter(e => e.course);
 
+  // Load real progress from localStorage
+  useEffect(() => {
+    const progressData = {};
+    enrolledCourses.forEach(e => {
+      const key = `course_progress_${user.id}_${e.courseId}`;
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        const data = JSON.parse(saved);
+        progressData[e.courseId] = data.progress || 0;
+      } else {
+        progressData[e.courseId] = 0;
+      }
+    });
+    setCourseProgress(progressData);
+  }, [enrolledCourses, user]);
+
   const handleLogout = () => {
     logout();
     navigate('/');
   };
+
+  const totalProgress = Object.keys(courseProgress).length > 0
+    ? Math.round(Object.values(courseProgress).reduce((a, b) => a + b, 0) / Object.keys(courseProgress).length)
+    : 0;
 
   return (
     <div className="min-h-screen bg-bg-light">
@@ -89,9 +111,7 @@ export default function Dashboard() {
                     <BarChart3 className="w-6 h-6 text-green-500" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-secondary">
-                      {enrollments.length > 0 ? Math.round(enrollments.reduce((a, e) => a + e.progress, 0) / enrollments.length) : 0}%
-                    </p>
+                    <p className="text-2xl font-bold text-secondary">{totalProgress}%</p>
                     <p className="text-sm text-gray-500">Avg. Progress</p>
                   </div>
                 </div>
@@ -116,28 +136,31 @@ export default function Dashboard() {
               <h2 className="text-xl font-bold text-secondary mb-6">My Enrolled Courses</h2>
               {enrolledCourses.length > 0 ? (
                 <div className="space-y-4">
-                  {enrolledCourses.map(e => (
-                    <div key={e.id} className="flex flex-col sm:flex-row gap-4 p-4 bg-bg-light rounded-xl">
-                      <img src={e.course.image} alt={e.course.title} className="w-full sm:w-32 h-24 object-cover rounded-lg" />
-                      <div className="flex-1">
-                        <h3 className="font-bold text-secondary mb-1">{e.course.title}</h3>
-                        <p className="text-sm text-gray-500 mb-2">by {e.course.instructor} &bull; {e.course.duration}</p>
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs font-medium px-2 py-1 bg-green-100 text-green-700 rounded-full">{e.status}</span>
-                          <div className="flex-1 bg-gray-200 rounded-full h-2">
-                            <div className="gradient-primary h-2 rounded-full" style={{width: `${e.progress}%`}}></div>
+                  {enrolledCourses.map(e => {
+                    const progress = courseProgress[e.courseId] || 0;
+                    return (
+                      <div key={e.id} className="flex flex-col sm:flex-row gap-4 p-4 bg-bg-light rounded-xl">
+                        <img src={e.course.image} alt={e.course.title} className="w-full sm:w-32 h-24 object-cover rounded-lg" />
+                        <div className="flex-1">
+                          <h3 className="font-bold text-secondary mb-1">{e.course.title}</h3>
+                          <p className="text-sm text-gray-500 mb-2">by {e.course.instructor} &bull; {e.course.duration}</p>
+                          <div className="flex items-center gap-3">
+                            <span className="text-xs font-medium px-2 py-1 bg-green-100 text-green-700 rounded-full">{e.status}</span>
+                            <div className="flex-1 bg-gray-200 rounded-full h-2">
+                              <div className="gradient-primary h-2 rounded-full transition-all" style={{width: `${progress}%`}}></div>
+                            </div>
+                            <span className="text-sm font-medium text-gray-500">{progress}%</span>
                           </div>
-                          <span className="text-sm font-medium text-gray-500">{e.progress}%</span>
+                          <p className="text-xs text-gray-400 mt-2">Enrolled: {new Date(e.enrolledAt).toLocaleDateString()}</p>
                         </div>
-                        <p className="text-xs text-gray-400 mt-2">Enrolled: {new Date(e.enrolledAt).toLocaleDateString()}</p>
+                        <Link to={`/course/${e.course.id}/content`} className="self-center">
+                          <button className="flex items-center gap-1 text-primary font-medium text-sm hover:underline">
+                            {progress > 0 ? 'Continue' : 'Start Course'} <ArrowRight className="w-4 h-4" />
+                          </button>
+                        </Link>
                       </div>
-                      <Link to={`/course/${e.course.id}/content`} className="self-center">
-                        <button className="flex items-center gap-1 text-primary font-medium text-sm hover:underline">
-                          Continue <ArrowRight className="w-4 h-4" />
-                        </button>
-                      </Link>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="text-center py-12">
