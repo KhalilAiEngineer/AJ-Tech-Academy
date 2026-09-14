@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { GraduationCap, Eye, EyeOff } from 'lucide-react';
+import { GraduationCap, Eye, EyeOff, Zap } from 'lucide-react';
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -31,6 +31,13 @@ export default function Login() {
     }
   };
 
+  const handleDemoLogin = () => {
+    const result = login('demo@eduactly.com', 'demo123');
+    if (result.success) {
+      navigate(from);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-bg-light flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
@@ -45,6 +52,17 @@ export default function Login() {
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
+          {/* Demo Login Button */}
+          <button onClick={handleDemoLogin} className="w-full bg-green-500 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition flex items-center justify-center gap-2 mb-4">
+            <Zap className="w-5 h-5" /> Quick Demo Login
+          </button>
+          <p className="text-center text-xs text-gray-400 mb-6">Auto-login with demo@eduactly.com / demo123</p>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200"></div></div>
+            <div className="relative flex justify-center text-sm"><span className="px-4 bg-white text-gray-400">or login manually</span></div>
+          </div>
+
           {errors.general && (
             <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm">{errors.general}</div>
           )}

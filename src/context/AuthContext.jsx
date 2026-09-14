@@ -12,6 +12,19 @@ export function AuthProvider({ children }) {
     const savedEnrollments = localStorage.getItem('enrollments');
     if (savedUser) setUser(JSON.parse(savedUser));
     if (savedEnrollments) setEnrollments(JSON.parse(savedEnrollments));
+
+    // Create demo user if not exists
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (!users.find(u => u.email === 'demo@eduactly.com')) {
+      users.push({
+        id: 1000,
+        name: 'Demo Student',
+        email: 'demo@eduactly.com',
+        password: 'demo123',
+        createdAt: new Date().toISOString()
+      });
+      localStorage.setItem('users', JSON.stringify(users));
+    }
     setLoading(false);
   }, []);
 
