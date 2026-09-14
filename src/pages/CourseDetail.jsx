@@ -137,12 +137,19 @@ export default function CourseDetail() {
       {showEnrollForm && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-secondary">Enroll in Course</h2>
-                <button onClick={() => setShowEnrollForm(false)} className="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            <div className="sticky top-0 bg-white z-10 p-6 pb-0">
+              <div className="flex items-center justify-between mb-4">
+                <button onClick={() => setShowEnrollForm(false)} className="flex items-center gap-2 text-gray-600 hover:text-primary transition font-medium">
+                  <ArrowLeft className="w-5 h-5" /> Back
+                </button>
+                <button onClick={() => setShowEnrollForm(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 transition">
+                  &times;
+                </button>
               </div>
+              <h2 className="text-2xl font-bold text-secondary mb-2">Enroll in Course</h2>
+            </div>
 
+            <div className="p-6 pt-0">
               <div className="bg-bg-light rounded-xl p-4 mb-6">
                 <p className="text-sm text-gray-500">Enrolling in:</p>
                 <p className="font-bold text-secondary">{course.title}</p>
