@@ -29,3 +29,43 @@ body {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
+
+/* Hide YouTube logo and branding in embedded videos */
+.youtube-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.youtube-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 30px;
+  background: black;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Hide YouTube watermark/logo overlay */
+iframe[src*="youtube.com/embed"] {
+  pointer-events: auto;
+}
+
+/* Remove YouTube branding from bottom right */
+.yt-brand-hide {
+  position: relative;
+}
+
+.yt-brand-hide::before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 60px;
+  height: 20px;
+  background: #000;
+  z-index: 100;
+  pointer-events: none;
+}

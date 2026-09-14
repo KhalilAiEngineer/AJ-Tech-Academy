@@ -123,12 +123,12 @@ export default function CourseContent() {
 
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row">
         <div className="flex-1">
-          <div className="relative w-full bg-black" style={{ paddingBottom: '56.25%' }}>
+          <div className="relative w-full bg-black yt-brand-hide" style={{ paddingBottom: '56.25%' }}>
             {currentVideo ? (
               <iframe
                 key={`${currentVideo.videoId}-${activeVideo}`}
                 className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${currentVideo.videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1`}
+                src={`https://www.youtube.com/embed/${currentVideo.videoId}?autoplay=1&controls=0&modestbranding=2&rel=0&showinfo=0&fs=0&iv_load_policy=3&disablekb=1&cc_load_policy=0&cc_lang_pref=0&hide_logo=1&origin=${encodeURIComponent(window.location.origin)}`}
                 title={currentVideo.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
