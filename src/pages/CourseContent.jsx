@@ -7,7 +7,7 @@ import { ArrowLeft, Play, CheckCircle, Clock, BookOpen, ChevronRight } from 'luc
 export default function CourseContent() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, isEnrolled } = useAuth();
+  const { user, loading, isEnrolled } = useAuth();
   const [activeVideo, setActiveVideo] = useState(0);
   const [completedVideos, setCompletedVideos] = useState([]);
 
@@ -38,6 +38,15 @@ export default function CourseContent() {
     }
   }, [storageKey, completedVideos, activeVideo, course]);
 
+  // Wait for loading to finish
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
+
   if (!user) {
     navigate('/login', { state: { from: `/course/${id}/content` } });
     return null;
@@ -45,9 +54,9 @@ export default function CourseContent() {
 
   if (!course) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-secondary mb-4">Course Not Found</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Course Not Found</h2>
           <Link to="/courses" className="text-primary font-medium hover:underline">Back to Courses</Link>
         </div>
       </div>
@@ -55,8 +64,16 @@ export default function CourseContent() {
   }
 
   if (!isEnrolled(course.id)) {
-    navigate(`/course/${id}`);
-    return null;
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">You are not enrolled in this course</h2>
+          <Link to={`/course/${id}`} className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
+            Enroll Now
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const videos = course.videos || [];
