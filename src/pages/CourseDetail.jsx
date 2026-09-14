@@ -76,9 +76,14 @@ export default function CourseDetail() {
             <p className="text-sm text-gray-500"><strong>Duration:</strong> {course.duration}</p>
             <p className="text-sm text-gray-500"><strong>Status:</strong> <span className="text-green-500 font-medium">Active</span></p>
           </div>
-          <Link to="/dashboard" className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
-            Go to Dashboard
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to={`/course/${course.id}/content`} className="gradient-primary text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition inline-block">
+              Start Course
+            </Link>
+            <Link to="/dashboard" className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-200 transition inline-block">
+              Go to Dashboard
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -108,8 +113,8 @@ export default function CourseDetail() {
               <img src={course.image} alt={course.title} className="w-full h-40 object-cover rounded-xl mb-4" />
               <p className="text-3xl font-bold text-primary mb-4">${course.price}</p>
               {alreadyEnrolled ? (
-                <Link to="/dashboard" className="block w-full bg-green-500 text-white py-3 rounded-lg font-bold text-center">
-                  Go to Dashboard
+                <Link to={`/course/${course.id}/content`} className="block w-full bg-green-500 text-white py-3 rounded-lg font-bold text-center hover:bg-green-600 transition">
+                  Start Course
                 </Link>
               ) : (
                 <button onClick={handleEnrollClick} className="w-full gradient-primary text-white py-3 rounded-lg font-bold hover:opacity-90 transition">
@@ -230,6 +235,31 @@ export default function CourseDetail() {
                 ))}
               </div>
             </div>
+
+            {/* Course Videos Preview */}
+            {course.videos && course.videos.length > 0 && (
+              <div className="bg-white rounded-2xl p-6 shadow-md">
+                <h2 className="text-xl font-bold text-secondary mb-4">Course Videos ({course.videos.length} Lessons)</h2>
+                <div className="space-y-3">
+                  {course.videos.map((video, i) => (
+                    <div key={video.id} className="flex items-center gap-4 p-3 bg-bg-light rounded-lg">
+                      <div className="w-10 h-10 gradient-primary rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                        {i + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-700 truncate">{video.title}</p>
+                        <p className="text-xs text-gray-400">{video.duration}</p>
+                      </div>
+                      {alreadyEnrolled && (
+                        <a href={`https://youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer" className="text-primary text-sm font-medium hover:underline flex-shrink-0">
+                          Preview
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}

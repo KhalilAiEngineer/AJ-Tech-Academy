@@ -131,7 +131,7 @@ export default function Dashboard() {
                         </div>
                         <p className="text-xs text-gray-400 mt-2">Enrolled: {new Date(e.enrolledAt).toLocaleDateString()}</p>
                       </div>
-                      <Link to={`/course/${e.course.id}`} className="self-center">
+                      <Link to={`/course/${e.course.id}/content`} className="self-center">
                         <button className="flex items-center gap-1 text-primary font-medium text-sm hover:underline">
                           Continue <ArrowRight className="w-4 h-4" />
                         </button>
